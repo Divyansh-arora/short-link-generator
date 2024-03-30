@@ -31,12 +31,6 @@ module.exports = {
         return res.status(400).json({ error: "URL and username are required" });
       }
 
-      // Check if the client is connected
-      if (!client.connected) {
-        console.error("Redis client is not connected");
-        return res.status(500).json({ error: "Internal Server Error" });
-      }
-
       const shortLink = nanoid(8);
       const urlEntry = new Url({ originalUrl: url, shortLink, username });
       await urlEntry.save();
